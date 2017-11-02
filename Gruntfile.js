@@ -17,6 +17,7 @@
 
 /*jslint node: true */
 "use strict";
+var path = require("path");
 
 module.exports = function (grunt) {
   var helper = require('./tasks/helper.js'),
@@ -159,8 +160,8 @@ module.exports = function (grunt) {
 
     exec: {
       start_nightWatch: {
-        command: __dirname + '/node_modules/nightwatch/bin/nightwatch' +
-        ' -c ' + __dirname + '/test/nightwatch_tests/nightwatch.json',
+        command: "node " + __dirname + path.normalize('/node_modules/nightwatch/bin/nightwatch') +
+        ' -c ' + __dirname + path.normalize('/test/nightwatch_tests/nightwatch.json'),
         options: {
           maxBuffer: 1000 * 1024
         }
