@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import React from "react";
 import ReactDOM from "react-dom";
 import app from "../../../app";
+import _ from 'lodash';
 import FauxtonAPI from "../../../core/api";
 import Stores from "./stores";
 import Actions from "./actions";
@@ -513,13 +514,20 @@ class SidebarController extends React.Component {
 
   state = this.getStoreState();
 
+  getSideNavExtensions = () => {
+    const extensions = FauxtonAPI.getExtensions('sidebar:sidenav');
+    return _.map(extensions, function (Extension, i) {
+      return (<Extension key={i} />);
+    }, this);
+  };
+
   render() {
     if (this.state.isLoading) {
       return <LoadLines />;
     }
-
     return (
       <nav className="sidenav">
+        {this.getSideNavExtensions()}
         <MainSidebar
           selectedNavItem={this.state.selectedNav.navItem}
           databaseName={this.state.database.id} />

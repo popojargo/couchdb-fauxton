@@ -64,7 +64,18 @@ const parseJSON = (str) => {
 };
 
 const getModifyDatabaseLinks = (databaseName) => {
-  return [{
+  const extensions = FauxtonAPI.getExtensions("database:modifiylinks");
+  //We have to wrap the onClick function to pass the database name since it`s not accessible
+  extensions.forEach(ext => {
+    if (ext.onClick) {
+      const funct = ext.onClick;
+      ext.onClick = () => {
+        funct(databaseName);
+      };
+    }
+  });
+
+  const defaultLinks = [{
     title: 'Replicate Database',
     icon: 'fonticon-replicate',
     url: FauxtonAPI.urls('replication', 'app', databaseName)
@@ -73,6 +84,8 @@ const getModifyDatabaseLinks = (databaseName) => {
     icon: 'fonticon-trash',
     onClick: ReactComponentsActions.showDeleteDatabaseModal.bind(this, {showDeleteModal: true, dbId: databaseName})
   }];
+
+  return defaultLinks.concat(extensions);
 };
 
 const truncateDoc = (docString, maxRows) => {
