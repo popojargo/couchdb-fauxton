@@ -114,6 +114,15 @@ Documents.Doc = FauxtonAPI.Model.extend({
     return true;
   },
 
+  setDdocValidator: function(validate) {
+    if (!this.isDdoc()) {
+      return false;
+    }
+
+    this.set({validate_doc_update: validate});
+    return true;
+  },
+
   setDdocView: function (view, map, reduce) {
     if (!this.isDdoc()) {
       return false;

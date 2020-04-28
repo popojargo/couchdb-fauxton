@@ -19,6 +19,7 @@ import HeaderDocsLeft from './components/header-docs-left';
 import ChangesContainer from './changes/components/ChangesContainer';
 import ChangesTabContentContainer from './changes/components/ChangesTabContentContainer';
 import IndexEditorComponents from "./index-editor/components";
+import ValidatorEditorComponents from './validator-editor/components';
 import DesignDocInfoContainer from './designdocinfo/components/DesignDocInfoContainer';
 import RightAllDocsHeader from './components/header-docs-right';
 import IndexResultsContainer from './index-results/containers/IndexResultsContainer';
@@ -245,14 +246,21 @@ export const ChangesSidebarLayout = ({ docURL, database, endpoint, dbName, dropD
   );
 };
 
-export const ViewsTabsSidebarLayout = ({showEditView, database, docURL, endpoint,
-  dbName, dropDownLinks, selectedNavItem, designDocInfo, partitionKey }) => {
-
-  const content = showEditView ?
-    <IndexEditorComponents.IndexEditorContainer partitionKey={partitionKey}/> :
-    <DesignDocInfoContainer
+export const DesignDocTabsSidebarLayout = ({
+  showValidatorEditView, showEditView, database, docURL, endpoint,
+  dbName, dropDownLinks, selectedNavItem, designDocInfo, partitionKey
+}) => {
+  function getContent() {
+    if (showValidatorEditView) {
+      return (<ValidatorEditorComponents.ValidatorEditorContainer partitionKey={partitionKey} />);
+    }    else if (showEditView) {
+      return (<IndexEditorComponents.IndexEditorContainer partitionKey={partitionKey}/>);
+    }
+    return (<DesignDocInfoContainer
       designDocInfo={designDocInfo}
-      designDocName={selectedNavItem.designDocName}/>;
+      designDocName={selectedNavItem.designDocName}/>);
+  }
+  const content = getContent();
   return (
     <div id="dashboard" className="with-sidebar">
       <TabsSidebarHeader
@@ -276,11 +284,13 @@ export const ViewsTabsSidebarLayout = ({showEditView, database, docURL, endpoint
   );
 };
 
-ViewsTabsSidebarLayout.defaultProps = {
-  showEditView: true
+DesignDocTabsSidebarLayout.defaultProps = {
+  showEditView: true,
+  showValidatorView: false,
 };
 
-ViewsTabsSidebarLayout.propTypes = {
+DesignDocTabsSidebarLayout.propTypes = {
+  showValidatorView: PropTypes.bool,
   showEditView: PropTypes.bool,
   docURL: PropTypes.string.isRequired,
   endpoint: PropTypes.string,

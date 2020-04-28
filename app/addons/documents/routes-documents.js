@@ -18,7 +18,7 @@ import Databases from '../databases/base';
 import Resources from './resources';
 import {SidebarItemSelection} from './sidebar/helpers';
 import ComponentsActions from '../components/actions';
-import {DocsTabsSidebarLayout, ViewsTabsSidebarLayout, ChangesSidebarLayout} from './layouts';
+import {DocsTabsSidebarLayout, DesignDocTabsSidebarLayout, ChangesSidebarLayout} from './layouts';
 
 var DocumentsRouteObject = BaseRoute.extend({
   routes: {
@@ -73,7 +73,7 @@ var DocumentsRouteObject = BaseRoute.extend({
     });
     DatabaseActions.fetchSelectedDatabaseInfo(database);
     const dropDownLinks = this.getCrumbs(this.database);
-    return <ViewsTabsSidebarLayout
+    return <DesignDocTabsSidebarLayout
       showEditView={false}
       docURL={designDocInfo.documentation()}
       endpoint={designDocInfo.url('apiurl')}

@@ -47,7 +47,14 @@ const getNewButtonLinks = (databaseName, partitionKey) => {
     title: 'New View',
     url: newUrlPrefix + partitionKeyComponent + '/new_view',
     icon: 'fonticon-plus-circled'
-  }, getMangoLink(databaseName, partitionKey)]);
+  },
+  {
+    title: 'New Validator',
+    url: newUrlPrefix + partitionKeyComponent + '/new_validator',
+    icon: 'fonticon-plus-circled'
+  },
+  getMangoLink(databaseName, partitionKey)
+  ]);
 
   return [{
     title: 'Add New',

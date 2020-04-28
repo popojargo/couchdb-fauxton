@@ -10,19 +10,14 @@
 // License for the specific language governing permissions and limitations under
 // the License.
 
-import Documents from './shared-resources';
-import DocumentsRouteObject from "./routes-documents";
-import docEditor from "./routes-doc-editor";
-import IndexEditorRouteObject from "./routes-index-editor";
-import ValidatorRouteObject from './routes-validator-editor';
-import Mango from "./routes-mango";
+import ReactComponents from '../../components/react-components';
+import ValidatorEditor from './components/ValidatorEditor';
+import ValidatorEditorContainer from './components/ValidatorEditorContainer';
 
-Documents.RouteObjects = [
-  docEditor.DocEditorRouteObject,
-  DocumentsRouteObject,
-  ValidatorRouteObject,
-  IndexEditorRouteObject,
-  Mango.MangoIndexEditorAndQueryEditor
-];
+const StyledSelect = ReactComponents.StyledSelect;
 
-export default Documents;
+export default {
+  ValidatorEditorContainer,
+  ValidatorEditor,
+  StyledSelect
+};

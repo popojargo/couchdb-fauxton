@@ -116,13 +116,39 @@ export default class DesignDoc extends React.Component {
       title: 'New View',
       url: '#' + FauxtonAPI.urls('new', 'addView', encodeURIComponent(this.props.database.id), encodedPartKey, encodeURIComponent(designDocName)),
       icon: 'fonticon-plus-circled'
-    }]);
+    },
+    //TODO: Investigate if this could be hidden if validator already exists on ddoc
+    {
+      title: 'New Validator',
+      url: '#' + FauxtonAPI.urls('new', 'addValidator', encodeURIComponent(this.props.database.id), encodedPartKey, encodeURIComponent(designDocName)),
+      icon: 'fonticon-plus-circled'
+    }
+    ]);
 
     return [{
       title: 'Add New',
       links: addNewLinks
     }];
   };
+
+  getValidatorMenuOption() {
+    const rowClass = (this.props.selectedNavInfo.designDocSection === 'validator') ? 'active' : '';
+    const encodePartitionKey = this.props.selectedPartitionKey ? encodeURIComponent(this.props.selectedPartitionKey) : '';
+    const url = FauxtonAPI.urls(
+      'validator',
+      'edit',
+      encodeURIComponent(this.props.database.id),
+      encodePartitionKey,
+      this.props.designDocName
+    );
+    return (
+      <li className={rowClass}>
+        <a href={"#/" + url} className="toggle-view accordion-header">
+          Validate function
+        </a>
+      </li>
+    );
+  }
 
   render () {
     const buttonLinks = this.getNewButtonLinks();
@@ -163,6 +189,7 @@ export default class DesignDoc extends React.Component {
                 Metadata
               </a>
             </li>
+            {this.getValidatorMenuOption(encodedPartKey, designDocName)}
             {this.indexList()}
           </ul>
         </Collapse>

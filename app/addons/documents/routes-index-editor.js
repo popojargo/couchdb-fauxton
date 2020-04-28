@@ -18,7 +18,7 @@ import DatabaseActions from '../databases/actions';
 import Databases from "../databases/base";
 import SidebarActions from './sidebar/actions';
 import {SidebarItemSelection} from './sidebar/helpers';
-import {DocsTabsSidebarLayout, ViewsTabsSidebarLayout} from './layouts';
+import {DocsTabsSidebarLayout, DesignDocTabsSidebarLayout} from './layouts';
 
 const IndexEditorAndResults = BaseRoute.extend({
   routes: {
@@ -151,7 +151,7 @@ const IndexEditorAndResults = BaseRoute.extend({
     const selectedNavItem = new SidebarItemSelection('');
     const dropDownLinks = this.getCrumbs(this.database);
 
-    return <ViewsTabsSidebarLayout
+    return <DesignDocTabsSidebarLayout
       showIncludeAllDocs={true}
       docURL={FauxtonAPI.constants.DOC_URLS.GENERAL}
       dbName={this.database.id}
@@ -187,7 +187,7 @@ const IndexEditorAndResults = BaseRoute.extend({
     const endpoint = FauxtonAPI.urls('view', 'apiurl', databaseName, ddocName, viewName);
     const dropDownLinks = this.getCrumbs(this.database);
 
-    return <ViewsTabsSidebarLayout
+    return <DesignDocTabsSidebarLayout
       showIncludeAllDocs={true}
       docURL={docURL}
       endpoint={endpoint}

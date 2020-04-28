@@ -201,7 +201,8 @@ input[type="text"].error {
 }
 
 form.view-query-update,
-form.view-query-save {
+form.view-query-save,
+form.validator-query-save {
   max-width: 100%;
 }
 
@@ -356,12 +357,12 @@ input.errorHighlight {
     }
     &.active {
       /**
-       * The Reselect Components dropdown will go under the btn group on active 
-       * since its relatively positioned before this component which is also relatively 
+       * The Reselect Components dropdown will go under the btn group on active
+       * since its relatively positioned before this component which is also relatively
        * positioned. Based on the stacking context, no amount of z-index applied
        * to the dropdown will overcome the activated btns z-index set in Bootstrap.
        * The fix is to apply a z-index of !important here to override boostraps styling
-       * so the dropdown can go over the activated button. 
+       * so the dropdown can go over the activated button.
        */
       z-index: 1 !important;
       background-color: @brandHighlight;

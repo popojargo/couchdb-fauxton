@@ -36,6 +36,7 @@ export default {
     VIEW_FUNCS:'./docs/ddocs/ddocs.html#view-functions',
     MAP_FUNCS:'./docs/ddocs/ddocs.html#map-functions',
     REDUCE_FUNCS:'./docs/ddocs/ddocs.html#reduce-and-rereduce-functions',
+    VALIDATE_FUNCS:'./docs/ddocs/ddocs.html#validate-document-update-functions',
     API_REF:'./docs/http-api.html',
     DB_PERMISSION:'./docs/api/database/security.html#db-security',
     STATS:'./docs/api/server/common.html?highlight=stats#get--_stats',

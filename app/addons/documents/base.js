@@ -23,6 +23,7 @@ import revisionBrowserReducers from './rev-browser/reducers';
 import docEditorReducers from './doc-editor/reducers';
 import changesReducers from './changes/reducers';
 import indexEditorReducers from './index-editor/reducers';
+import validatorEditorReducers from './validator-editor/reducers';
 import "./assets/less/documents.less";
 
 FauxtonAPI.addReducers({
@@ -34,10 +35,11 @@ FauxtonAPI.addReducers({
   docEditor: docEditorReducers,
   changes: changesReducers,
   designDocInfo: designDocInfoReducers,
-  indexEditor: indexEditorReducers
+  indexEditor: indexEditorReducers,
+  validatorEditor: validatorEditorReducers,
 });
 
-function getQueryParam (query) {
+function getQueryParam(query) {
   if (!query) {
     query = '';
   }
@@ -162,6 +164,40 @@ FauxtonAPI.registerUrls('partitioned_view', {
   }
 });
 
+FauxtonAPI.registerUrls('validator', {
+  server: function (database, partitionKey, designDoc) {
+    return Helpers.getServerUrl('/' + database + partitionUrlComponent(partitionKey) + '/_design/' + designDoc);
+  },
+
+  app: function (database, designDoc) {
+    return 'database/' + database + '/_design/' + designDoc + '/_validate/';
+  },
+
+  apiurl: function (id, partitionKey, designDoc) {
+    return Helpers.getApiUrl('/' + id + partitionUrlComponent(partitionKey) + '/_design/' + designDoc);
+  },
+
+  edit: function (database, partitionKey, designDoc) {
+    return 'database/' + database + partitionUrlComponent(partitionKey) + '/_design/' + designDoc + '/_validator/edit';
+  },
+
+  fragment: function (database, designDoc) {
+    return 'database/' + database + designDoc + '/_validator/';
+  }
+});
+
+FauxtonAPI.registerUrls('partitioned_validator', {
+  server: function (database, partitionKey, designDoc) {
+    return Helpers.getServerUrl('/' + database + '/_partition/' + partitionKey + '/_design/' + designDoc);
+  },
+  app: function (database, partitionKey, designDoc) {
+    return 'database/' + database + '/_partition/' + partitionKey + '/_design/' + designDoc + '/_validator/';
+  },
+  apiurl: function (database, partitionKey, designDoc) {
+    return Helpers.getApiUrl('/' + database + '/_partition/' + partitionKey + '/_design/' + designDoc);
+  }
+});
+
 FauxtonAPI.registerUrls('document', {
   server: function (database, doc, query) {
     if (_.isUndefined(query)) {
@@ -199,13 +235,13 @@ FauxtonAPI.registerUrls('new', {
     return '/database/' + database + '/_new';
   },
 
-  newView: function (database, partitionKey) {
-    return '/database/' + database + partitionUrlComponent(partitionKey) + '/new_view';
-  },
-
   addView: function (database, partitionKey, ddoc) {
     return '/database/' + database + partitionUrlComponent(partitionKey) + '/new_view/' + ddoc;
-  }
+  },
+
+  addValidator: function (database, partitionKey, ddoc) {
+    return '/database/' + database + partitionUrlComponent(partitionKey) + '/new_validator/' + ddoc;
+  },
 });
 
 FauxtonAPI.registerUrls('base', {
